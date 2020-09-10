@@ -8,9 +8,46 @@ namespace Banken
 {
     class Program
     {
+        static List<Kund> custumerList = new List<Kund>();
+
         static void Main(string[] args)
         {
             int choise = SelectMenuItem();
+
+            switch (choise)
+            {
+                case 1:
+                    Console.WriteLine("Du valde 1");
+
+                    Kund kund = new Kund();
+                    Console.Write("Ange ditt namn: ");
+                    kund.Name = Console.ReadLine();
+
+                    custumerList.Add(kund);
+
+                    break;
+
+                case 2:
+                    Console.WriteLine("Du vale 2");
+                    break;
+
+                case 3:
+                    Console.WriteLine("Du valde 3");
+                    break;
+
+                case 4:
+                case 5:
+                case 6:
+                    Console.WriteLine("Inte implementerat");
+                    break;
+
+
+                case 7:
+                    Console.WriteLine("Du valde 7");
+                    break;
+            };
+
+            Console.ReadKey();
         }
 
         private static int SelectMenuItem()
