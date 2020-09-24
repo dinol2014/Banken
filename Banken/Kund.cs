@@ -12,7 +12,12 @@ namespace Banken
         public int Balence;
         public string ShowCustumerInfo()
         {
-            return "User name: " + Name + Environment.NewLine + "User balence: " + Balence;
+            return "User name: " + Name + Environment.NewLine;
+        }
+
+        public string ShowSpecificCustumerInfo()
+        {
+            return "User name: " + Name + Environment.NewLine + "Balence: " + Balence + Environment.NewLine;
         }
     }
 }

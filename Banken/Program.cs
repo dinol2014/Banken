@@ -8,49 +8,98 @@ namespace Banken
 {
     class Program
     {
-        static List<Kund> custumerList = new List<Kund>();
+        static List<Kund> custumerList = new List<Kund>(); // gör en lista för kunderna
 
         static void Main(string[] args)
         {
-            int choise = SelectMenuItem();
+            int choise = SelectMenuItem(); // går till metoden för menyn
 
-            switch (choise)
+            while (choise != 7) 
             {
-                case 1:
-                    Console.WriteLine("Du valde 1");
+                switch (choise) // väljer olika alternativ beroande på svar
+                {
+                    case 1: // lägger till en ny kund i listan
+                        Kund kund = new Kund();
+                        Console.Write("Ange ditt namn: ");
+                        kund.Name = Console.ReadLine();
 
-                    Kund kund = new Kund();
-                    Console.Write("Ange ditt namn: ");
-                    kund.Name = Console.ReadLine();
+                        custumerList.Add(kund);
 
-                    custumerList.Add(kund);
+                        break;
 
-                    break;
+                    case 2: // tar bort en kund frön listan
+                        ShowAllCustumers();
 
-                case 2:
-                    Console.WriteLine("Du vale 2");
-                    break;
+                        int cId = GetCustumerId();
 
-                case 3:
-                    Console.WriteLine("Du valde 3");
-                    break;
+                        custumerList.RemoveAt(cId);
+                        break;
 
-                case 4:
-                case 5:
-                case 6:
-                    Console.WriteLine("Inte implementerat");
-                    break;
+                    case 3: // visar alla kunder
+                        ShowAllCustumers();
+                        break;
 
+                    case 4: // visar kunders balence
+                        ShowAllCustumers();
 
-                case 7:
-                    Console.WriteLine("Du valde 7");
-                    break;
-            };
+                        cId = GetCustumerId();
 
+                        Console.WriteLine(custumerList[cId].ShowSpecificCustumerInfo());
+                        break;
+
+                    case 5: // lägger in en summa för en kund
+                        ShowAllCustumers();
+
+                        cId = GetCustumerId();
+
+                        Console.WriteLine("Skriv in den summa du vill sätta in: ");
+                        string strBalAdd = Console.ReadLine();
+                        int intBalAdd = int.Parse(strBalAdd);
+
+                        custumerList[cId].Balence += intBalAdd;
+                        break;
+
+                    case 6: // tar ut en summa för en kund
+                        ShowAllCustumers();
+
+                        cId = GetCustumerId();
+
+                        Console.WriteLine("Skriv in den summa du vill ta ut: ");
+                        string strBalRemove = Console.ReadLine();
+                        int intBalRemove = int.Parse(strBalRemove);
+
+                        custumerList[cId].Balence -= intBalRemove;
+                        break;
+                };
+                choise = SelectMenuItem(); // går tillbaka till menyn
+            }
             Console.ReadKey();
         }
 
-        private static int SelectMenuItem()
+        private static int GetCustumerId() // skaffar list indexet
+        {
+            Console.WriteLine("Skriv kund id:");
+            string custumerId = Console.ReadLine();
+            int cId = int.Parse(custumerId);
+
+            while(!(cId >= 0 && cId < custumerList.Count))
+            {
+                Console.WriteLine("Skriv kund id:");
+                custumerId = Console.ReadLine();
+                cId = int.Parse(custumerId);
+            }
+            return cId;
+        }
+
+        private static void ShowAllCustumers() // visar upp alla kunder och deras index i listan
+        {
+            for (int i = 0; i < custumerList.Count; i++)
+            {
+                Console.WriteLine("Kund id " + i + " " + custumerList[i].ShowCustumerInfo());
+            }
+        }
+
+        private static int SelectMenuItem() // visar upp menyn
         {
             Console.WriteLine("1 : Add a user.");
             Console.WriteLine("2 : Remove a user.");
