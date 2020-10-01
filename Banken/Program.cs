@@ -25,6 +25,8 @@ namespace Banken
 
                         custumerList.Add(kund);
 
+                        CleanConsole();
+
                         break;
 
                     case 2: // tar bort en kund frön listan
@@ -33,10 +35,16 @@ namespace Banken
                         int cId = GetCustumerId();
 
                         custumerList.RemoveAt(cId);
+
+                        CleanConsole();
+
                         break;
 
                     case 3: // visar alla kunder
                         ShowAllCustumers();
+
+                        CleanConsole();
+
                         break;
 
                     case 4: // visar kunders balence
@@ -45,6 +53,9 @@ namespace Banken
                         cId = GetCustumerId();
 
                         Console.WriteLine(custumerList[cId].ShowSpecificCustumerInfo());
+
+                        CleanConsole();
+
                         break;
 
                     case 5: // lägger in en summa för en kund
@@ -56,7 +67,10 @@ namespace Banken
                         string strBalAdd = Console.ReadLine();
                         int intBalAdd = int.Parse(strBalAdd);
 
-                        custumerList[cId].Balence += intBalAdd;
+                        custumerList[cId].TransacAdd(intBalAdd);
+
+                        CleanConsole();
+
                         break;
 
                     case 6: // tar ut en summa för en kund
@@ -68,13 +82,25 @@ namespace Banken
                         string strBalRemove = Console.ReadLine();
                         int intBalRemove = int.Parse(strBalRemove);
 
-                        custumerList[cId].Balence -= intBalRemove;
+                        custumerList[cId].TransacRemove(intBalRemove);
+
+                        CleanConsole();
+
                         break;
                 };
                 choise = SelectMenuItem(); // går tillbaka till menyn
             }
             Console.ReadKey();
         }
+
+        private static void CleanConsole() // ränsar konsolen
+        {
+            Console.WriteLine("Tryck på enter för att fortätta...");
+            Console.ReadLine();
+
+            Console.Clear();
+        }
+
 
         private static int GetCustumerId() // skaffar list indexet
         {
@@ -109,8 +135,26 @@ namespace Banken
             Console.WriteLine("6 : Make a withdrow for a user.");
             Console.WriteLine("7 : Close program.");
 
-            string strAwnser = Console.ReadLine();
-            return int.Parse(strAwnser);
+            string strAwnser = "";
+            int iAwnser=0;
+            while (!(iAwnser >= 1 && iAwnser <= 7))
+            {   
+                if (strAwnser != "")
+                {
+                    Console.WriteLine("Du skerv fel, skriv rätt.");
+                }
+
+                strAwnser = Console.ReadLine();
+                try
+                {
+                    iAwnser = int.Parse(strAwnser);
+                } catch
+                {
+                    Console.WriteLine("Det var inte ett tal.");
+                }
+            }
+
+            return iAwnser;
         }
     }
 }
