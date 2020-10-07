@@ -29,7 +29,7 @@ namespace Banken
 
                         break;
 
-                    case 2: // tar bort en kund frön listan
+                    case 2: // tar bort en kund från listan
                         ShowAllCustumers();
 
                         int cId = GetCustumerId();
