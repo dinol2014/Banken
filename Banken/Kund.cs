@@ -39,10 +39,10 @@ namespace Banken
 
             foreach(int t in transactions)
             {
-                transactions[t];
+                tranactionList += t + Environment.NewLine;
             }
 
-            return
+            return tranactionList;
         }
 
         public void TransacAdd(int intBalAdd) // lägger till en insättning i transaktions listan 
