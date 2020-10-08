@@ -9,7 +9,7 @@ namespace Banken
     class Kund
     {
         public string Name;
-        public List<int> transactions = new List<int>(); // gör en lista för transaktioner
+        public List<Transaction> transactions = new List<Transaction>(); // gör en lista för transaktioner
 
         public string ShowCustumerInfo() // visar information om kunden
         {
@@ -25,9 +25,9 @@ namespace Banken
         {
             int total = 0;
 
-            foreach (int t in transactions)
+            foreach (Transaction t in transactions)
             {
-                total += t;
+                total += t.ammount;
             }
 
             return total;
@@ -37,9 +37,9 @@ namespace Banken
         {
             string tranactionList = "";
 
-            foreach(int t in transactions)
+            foreach(Transaction t in transactions)
             {
-                tranactionList += t + Environment.NewLine;
+                tranactionList += "Datum:" + t.dateTime + " Mängd: " + t.ammount + Environment.NewLine;
             }
 
             return tranactionList;
@@ -47,12 +47,20 @@ namespace Banken
 
         public void TransacAdd(int intBalAdd) // lägger till en insättning i transaktions listan 
         {
-            transactions.Add(intBalAdd);
+            Transaction t = new Transaction();
+            t.ammount = intBalAdd;
+            t.dateTime = DateTime.Now;
+
+            transactions.Add(t);
         }
 
         public void TransacRemove(int intBalRemove) // lägger till en utsättning i transaktions listan
         {
-            transactions.Add(intBalRemove * -1);
+            Transaction t = new Transaction();
+            t.ammount = intBalRemove * -1;
+            t.dateTime = DateTime.Now;
+
+            transactions.Add(t);
         }
     }
 }
