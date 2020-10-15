@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Banken
 {
@@ -10,8 +11,13 @@ namespace Banken
     {
         static List<Kund> custumerList = new List<Kund>(); // gör en lista för kunderna
 
+        static string filePath = @"C:\test\";
+        static string fileName = "custumerData";
+
         static void Main(string[] args)
         {
+
+
             int choise = SelectMenuItem(); // går till metoden för menyn
 
             while (choise != 7) 
@@ -91,6 +97,9 @@ namespace Banken
                 choise = SelectMenuItem(); // går tillbaka till menyn
             }
             Console.ReadKey();
+
+            WriteCustumerToFile();
+
         }
 
         private static void CleanConsole() // ränsar konsolen
@@ -155,6 +164,18 @@ namespace Banken
             }
 
             return iAwnser;
+        }
+
+        private static void WriteCustumerToFile()
+        {
+            string users = "";
+
+            foreach(Kund u in custumerList)
+            {
+                users += u.Name + "|";
+            }
+
+            // auto-generera mapp pch fil ifall det inte finns
         }
     }
 }
