@@ -16,7 +16,7 @@ namespace Banken
 
         static void Main(string[] args)
         {
-
+            ReadCustumerFile();
 
             int choise = SelectMenuItem(); // går till metoden för menyn
 
@@ -166,7 +166,7 @@ namespace Banken
             return iAwnser;
         }
 
-        private static void WriteCustumerToFile()
+        private static void WriteCustumerToFile() //skriver alla kunderna till en permanent text fil
         {
             string users = "";
 
@@ -175,7 +175,25 @@ namespace Banken
                 users += u.Name + "|";
             }
 
-            // auto-generera mapp pch fil ifall det inte finns
+            if(File.Exists(filePath + fileName))
+            {
+                File.Delete(filePath + fileName);
+            }
+
+            if(Directory.Exists(filePath) == false)
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            File.WriteAllText(filePath + fileName, users);
+        }
+
+        private static void ReadCustumerFile() // läser upp kunderna från text filen
+        {
+            if(File.Exists(filePath + fileName))
+            {
+
+            }
         }
     }
 }
