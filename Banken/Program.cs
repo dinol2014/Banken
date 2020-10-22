@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.ComponentModel;
 
 namespace Banken
 {
@@ -16,7 +17,7 @@ namespace Banken
 
         static void Main(string[] args)
         {
-            ReadCustumerFile();
+            ReadCustumerFile(); // anropar metoden för att läsa upp gammla kunder
 
             int choise = SelectMenuItem(); // går till metoden för menyn
 
@@ -98,7 +99,7 @@ namespace Banken
             }
             Console.ReadKey();
 
-            WriteCustumerToFile();
+            WriteCustumerToFile(); // anropar metoden för att spara kunderna
 
         }
 
@@ -117,7 +118,7 @@ namespace Banken
             string custumerId = Console.ReadLine();
             int cId = int.Parse(custumerId);
 
-            while(!(cId >= 0 && cId < custumerList.Count))
+            while(!(cId >= 0 && cId < custumerList.Count)) // medans cId inte >= 0 & cId inte <= antalet kunder så loopar det
             {
                 Console.WriteLine("Skriv kund id:");
                 custumerId = Console.ReadLine();
@@ -172,8 +173,9 @@ namespace Banken
 
             foreach(Kund u in custumerList)
             {
-                users += u.Name + "|";
+                users += u.Name + "|"; // lägger till en | för att åtskillja kundnamnen
             }
+            users = users.Substring(0, users.Length - 1); // tar bort den sista | effter det sista namnet
 
             if(File.Exists(filePath + fileName))
             {
@@ -192,7 +194,16 @@ namespace Banken
         {
             if(File.Exists(filePath + fileName))
             {
+                string text = File.ReadAllText(filePath + fileName);
 
+                String[] items = text.Split('|'); // splittar upp filen och lägger det i en arrey
+
+                foreach(String item in items) // för varje item i arreyen String så loopar den
+                {
+                    Kund kund = new Kund();
+                    kund.Name = item;
+                    custumerList.Add(kund);
+                }
             }
         }
     }
